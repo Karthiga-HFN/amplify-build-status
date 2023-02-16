@@ -43,6 +43,8 @@ if [[ $TIMEOUT -lt 0 ]]; then
     exit 1
 fi
 
+status=$(aws amplify list-jobs --app-id "$1" --branch-name "$2" | jq -r ".jobSummaries[] | select(.jobType == \"WEB_HOOK\")[0] | .status")
+echo $status
 get_status () {
     local status;
     status=$(aws amplify list-jobs --app-id "$1" --branch-name "$2" | jq -r ".jobSummaries[] | select(.jobType == \"WEB_HOOK\")[0] | .status")
