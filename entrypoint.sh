@@ -44,6 +44,7 @@ if [[ $TIMEOUT -lt 0 ]]; then
 fi
 
 status=$(aws amplify list-jobs --app-id "$1" --branch-name "$2" | jq -r ".jobSummaries[] | select(.jobType == \"WEB_HOOK\")[0] | .status")
+sleep 30
 status=$(echo $status | tr '\n' ' ')
 echo "$status"
     
