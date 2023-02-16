@@ -45,7 +45,7 @@ fi
 
 get_status () {
     local status;
-    status=$(aws amplify list-jobs --app-id "$1" --branch-name "$2" | jq -r ".jobSummaries[] | select(.commitId == \"$3\") | .status")
+    status=$(aws amplify list-jobs --app-id "$1" --branch-name "$2" | jq -r ".jobSummaries[] | jobSummaries[0].status")
     exit_status=$?
     # it seems like sometimes status ends up with a new line in it?
     # strip it out
