@@ -66,43 +66,6 @@ STATUS=$(get_status "$APP_ID" "$BRANCH_NAME")
 echo "status=$STATUS" 
 echo STATUS
 
-if [[ $? -ne 0 ]]; then
-    echo "Failed to get status of the job."
-    exit 1
-fi
-
-if [[ $STATUS == "SUCCEED" ]]; then
-    echo "Build Succeeded!"
-    echo "status=$STATUS" >> $GITHUB_OUTPUT
-    exit 0
-elif [[ $STATUS == "FAILED" ]]; then
-    echo "Build Failed!"
-    echo "status=$STATUS" >> $GITHUB_OUTPUT
-    no_fail_check
-fi
-
-count=0
-
-if [[ -z $STATUS ]]; then
-    echo "No job found for commit $COMMIT_ID. Waiting for job to start..."
-    while [[ -z $STATUS ]]; do
-        if [[ $count -ge 1800 ]]; then
-            echo "Timed out waiting for job to start."
-            exit 1
-        fi
-        sleep 30
-        STATUS=$(get_status "$APP_ID" "$BRANCH_NAME")
-        if [[ $? -ne 0 ]]; then
-            echo "Failed to get status of the job."
-            exit 1
-        fi
-        count=$((count+30))
-        echo "Waiting for job to start..."
-    done
-    elif [[ $STATUS ]]; then
-        echo "Build in progress... Status: $STATUS"
-    fi
-
 seconds=$(( $TIMEOUT * 60 ))
 count=0
 
