@@ -1,11 +1,11 @@
 #!/bin/sh -l
 
-APP_ID=d3karlz2kwcxpd
-BRANCH_NAME=Updates
-COMMIT_ID=aec137d25781b426af331f11b9c2d1df26a92e16true
-WAIT=true
-TIMEOUT=0
-NO_FAIL=false
+APP_ID=$1
+BRANCH_NAME=$2
+COMMIT_ID=$3
+WAIT=$4
+TIMEOUT=$5
+NO_FAIL=$6
 export AWS_DEFAULT_REGION="$AWS_REGION"
 
 if [[ -z "$AWS_ACCESS_KEY_ID" ]]; then
@@ -64,7 +64,7 @@ no_fail_check () {
 
 STATUS=$(get_status "$APP_ID" "$BRANCH_NAME")
 echo "status=$STATUS" 
-
+echo STATUS
 
 if [[ $? -ne 0 ]]; then
     echo "Failed to get status of the job."
