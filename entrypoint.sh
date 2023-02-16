@@ -62,7 +62,9 @@ no_fail_check () {
     fi
 }
 
-STATUS=$(get_status "$APP_ID" "$BRANCH_NAME" "$COMMIT_ID")
+STATUS=$(get_status "$APP_ID" "$BRANCH_NAME")
+echo "status=$STATUS" 
+
 
 if [[ $? -ne 0 ]]; then
     echo "Failed to get status of the job."
@@ -89,7 +91,7 @@ if [[ -z $STATUS ]]; then
             exit 1
         fi
         sleep 30
-        STATUS=$(get_status "$APP_ID" "$BRANCH_NAME" "$COMMIT_ID")
+        STATUS=$(get_status "$APP_ID" "$BRANCH_NAME")
         if [[ $? -ne 0 ]]; then
             echo "Failed to get status of the job."
             exit 1
@@ -114,7 +116,7 @@ elif [[ "$WAIT" == "true" ]]; then
             exit 1
         fi
         sleep 30
-        STATUS=$(get_status "$APP_ID" "$BRANCH_NAME" "$COMMIT_ID")
+        STATUS=$(get_status "$APP_ID" "$BRANCH_NAME")
         if [[ $? -ne 0 ]]; then
             echo "Failed to get status of the job."
             exit 1
