@@ -63,8 +63,6 @@ no_fail_check () {
 }
 
 STATUS=$(get_status "$APP_ID" "$BRANCH_NAME")
-echo "status=$STATUS" 
-echo STATUS
 
 seconds=$(( $TIMEOUT * 60 ))
 count=0
@@ -74,6 +72,7 @@ if [[ "$WAIT" == "false" ]]; then
     exit 0
 elif [[ "$WAIT" == "true" ]]; then
     while [[ $STATUS != "SUCCEED" ]]; do
+        echo "status=$STATUS"
         if [[ $TIMEOUT -ne 0 ]] && [[ $count -ge $seconds ]]; then
             echo "Timed out."
             exit 1
