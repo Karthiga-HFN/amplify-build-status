@@ -1,11 +1,11 @@
 #!/bin/sh -l
 
-APP_ID=$1
-BRANCH_NAME=$2
-COMMIT_ID=$3
-WAIT=$4
-TIMEOUT=$5
-NO_FAIL=$6
+APP_ID=d3karlz2kwcxpd
+BRANCH_NAME=Updates
+COMMIT_ID=aec137d25781b426af331f11b9c2d1df26a92e16true
+WAIT=true
+TIMEOUT=0
+NO_FAIL=false
 export AWS_DEFAULT_REGION="$AWS_REGION"
 
 if [[ -z "$AWS_ACCESS_KEY_ID" ]]; then
@@ -45,7 +45,7 @@ fi
 
 get_status () {
     local status;
-    status=$(aws amplify list-jobs --app-id "$1" --branch-name "$2" | jq -r ".jobSummaries[] | jobSummaries[0].status")
+    status=$(aws amplify list-jobs --app-id "$1" --branch-name "$2" | jq -r ".jobSummaries[] | .[0] | .status")
     exit_status=$?
     # it seems like sometimes status ends up with a new line in it?
     # strip it out
